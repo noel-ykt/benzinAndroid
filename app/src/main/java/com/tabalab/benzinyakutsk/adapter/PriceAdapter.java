@@ -2,22 +2,24 @@ package com.tabalab.benzinyakutsk.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.tabalab.benzinyakutsk.R;
-import com.tabalab.benzinyakutsk.model.Price;
+import com.tabalab.benzinyakutsk.model.Company;
+import com.tabalab.benzinyakutsk.model.ListItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PriceAdapter extends BaseAdapter {
-    private List<Price> list = new ArrayList<Price>();
+    private List<ListItem> list = new ArrayList<ListItem>();
     private LayoutInflater layoutInflater;
 
-    public PriceAdapter(Context context, List<Price> list) {
+    public PriceAdapter(Context context, List<ListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -41,17 +43,30 @@ public class PriceAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.activity_price, parent, false);
+            view = layoutInflater.inflate(R.layout.activity_main_item, parent, false);
         }
-        Price price = getPrice(position);
+        ListItem item = getListItem(position);
 
-        TextView textView = (TextView) view.findViewById(R.id.priceView);
-        textView.setText(price.getType().getName());
+        TextView typeName = (TextView) view.findViewById(R.id.typeName);
+        typeName.setText(item.getType().getName());
+
+        TextView typeDesc = (TextView) view.findViewById(R.id.typeDesc);
+        typeDesc.setText(item.getType().getDescription());
+
+        TextView price = (TextView) view.findViewById(R.id.price);
+        price.setText(item.getPrice());
+
+        TextView companyNames = (TextView) view.findViewById(R.id.companyName);
+        ArrayList<String> companyNamesArr = new ArrayList<String>();
+        for (Company company : item.getCompanies()) {
+            companyNamesArr.add(company.getName());
+        }
+        companyNames.setText(companyNamesArr.toString());
 
         return view;
     }
 
-    private Price getPrice(int position) {
-        return (Price) getItem(position);
+    private ListItem getListItem(int position) {
+        return (ListItem) getItem(position);
     }
 }
