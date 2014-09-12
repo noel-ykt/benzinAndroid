@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:background="#000"
-    android:weightSum="2">
+    android:weightSum="2"
+    android:id="@+id/viewItemLayout"
+    android:onClick="goToView">
 
     <LinearLayout
         android:orientation="horizontal"

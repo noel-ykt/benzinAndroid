@@ -15,11 +15,11 @@ import com.tabalab.benzinyakutsk.model.ListItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PriceAdapter extends BaseAdapter {
+public class MainItemAdapter extends BaseAdapter {
     private List<ListItem> list = new ArrayList<ListItem>();
     private LayoutInflater layoutInflater;
 
-    public PriceAdapter(Context context, List<ListItem> list) {
+    public MainItemAdapter(Context context, List<ListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

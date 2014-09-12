@@ -13,5 +13,8 @@ public class ViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
+
+        int typeId = getIntent().getIntExtra("typeId", 0);
+        System.out.println(typeId);
     }
 }
