@@ -14,6 +14,7 @@ import com.tabalab.benzinyakutsk.adapter.MainItemAdapter;
 import com.tabalab.benzinyakutsk.model.Company;
 import com.tabalab.benzinyakutsk.model.ListItem;
 import com.tabalab.benzinyakutsk.model.Type;
+import com.tabalab.benzinyakutsk.util.JSONParser;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -54,34 +55,29 @@ public class MainActivity extends Activity {
         new ProgressTask().execute();
     }
 
-    private void initData(String jsonString) {
-        try {
-            JSONArray jsonArray = new JSONArray(jsonString);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                ArrayList<Company> companies = new ArrayList<Company>();
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    //Companies
-                    JSONArray jsonCompanies = jsonObject.getJSONArray(COMPANIES);
-                    for (int j = 0; j < jsonCompanies.length(); j++) {
-                        JSONObject jsonCompany = jsonCompanies.getJSONObject(j);
-                        Company company = Company.getFromJSON(jsonCompany);
-                        companies.add(company);
-                    }
-                    //Type
-                    JSONObject jsonType = jsonObject.getJSONObject(TYPE);
-                    Type type = Type.getFromJSON(jsonType);
-                    //Price
-                    String price = jsonObject.getString(PRICE);
-
-                    ListItem item = new ListItem(type, companies, price);
-                    itemsResult.add(item);
-                } catch (Exception ex) {
-                    Log.d("Parse Json Object", ex.getLocalizedMessage());
+    private void initData(JSONArray jsonArray) {
+        for (int i = 0; i < jsonArray.length(); i++) {
+            ArrayList<Company> companies = new ArrayList<Company>();
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                //Companies
+                JSONArray jsonCompanies = jsonObject.getJSONArray(COMPANIES);
+                for (int j = 0; j < jsonCompanies.length(); j++) {
+                    JSONObject jsonCompany = jsonCompanies.getJSONObject(j);
+                    Company company = Company.getFromJSON(jsonCompany);
+                    companies.add(company);
                 }
+                //Type
+                JSONObject jsonType = jsonObject.getJSONObject(TYPE);
+                Type type = Type.getFromJSON(jsonType);
+                //Price
+                String price = jsonObject.getString(PRICE);
+
+                ListItem item = new ListItem(type, companies, price);
+                itemsResult.add(item);
+            } catch (Exception ex) {
+                Log.e("Parse Json Object", ex.getLocalizedMessage());
             }
-        } catch (JSONException ex) {
-            Log.e("JSONException", "Error: " + ex.toString());
         }
 
         itemList = (ListView) findViewById(R.id.listView);
@@ -100,11 +96,10 @@ public class MainActivity extends Activity {
 
     private class ProgressTask extends AsyncTask<String, String, Void> {
         private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-        InputStream inputStream;
-        String responseResult = "[]";
+        JSONArray responseJSONArray;
 
         protected void onPreExecute() {
-            this.dialog.setMessage("Загрузка данных...");
+            this.dialog.setMessage(getString(R.string.loading));
             this.dialog.show();
             this.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 public void onCancel(DialogInterface arg0) {
@@ -116,48 +111,12 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             this.dialog.hide();
-            initData(responseResult);
+            initData(responseJSONArray);
         }
 
         @Override
         protected Void doInBackground(String... strings) {
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-
-                HttpGet httpGet = new HttpGet(url);
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                StatusLine statusLine = httpResponse.getStatusLine();
-                int statusCode = statusLine.getStatusCode();
-                if (statusCode == 200) {
-                    HttpEntity httpEntity = httpResponse.getEntity();
-                    inputStream = httpEntity.getContent();
-                }
-            } catch (UnsupportedEncodingException e1) {
-                Log.e("UnsupportedEncodingException", e1.toString());
-                e1.printStackTrace();
-            } catch (ClientProtocolException e2) {
-                Log.e("ClientProtocolException", e2.toString());
-                e2.printStackTrace();
-            } catch (IllegalStateException e3) {
-                Log.e("IllegalStateException", e3.toString());
-                e3.printStackTrace();
-            } catch (IOException e4) {
-                Log.e("IOException", e4.toString());
-                e4.printStackTrace();
-            }
-
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line + '\n');
-                }
-                inputStream.close();
-                responseResult = stringBuilder.toString();
-            } catch (Exception e) {
-                Log.e("StringBuilding & BufferedReader", "Error converting result " + e.toString());
-            }
+            responseJSONArray = JSONParser.getJSONFromUrl(url);
             return null;
         }
     }

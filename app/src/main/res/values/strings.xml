@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">BenzinYakutsk</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_view">ViewActivity</string>
+    <string name="loading">Загрузка данных...</string>
 
 </resources>
