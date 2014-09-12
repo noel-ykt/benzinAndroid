@@ -1,8 +1,15 @@
 package com.tabalab.benzinyakutsk.model;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Company {
     private int id;
     private String name;
+
+    public static final Company UNKNOWN = new Company(0, "Unknown");
 
     public Company(int id, String name) {
         this.id = id;
@@ -23,5 +30,16 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static Company getFromJSON(JSONObject object) {
+        Company result;
+        try {
+            result = new Company(object.getInt("id"), object.getString("name"));
+        } catch (JSONException ex) {
+            Log.e("JSONException when parse company", ex.getLocalizedMessage());
+            result = Company.UNKNOWN;
+        }
+        return result;
     }
 }

@@ -1,9 +1,16 @@
 package com.tabalab.benzinyakutsk.model;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Type {
     private int id;
     private String name;
     private String description;
+
+    public static final Type UNKNOWN = new Type(0, "Unknown", "Unknown");
 
     public Type(int id, String name, String description) {
         this.id = id;
@@ -33,5 +40,16 @@ public class Type {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static Type getFromJSON(JSONObject object) {
+        Type result;
+        try {
+            result = new Type(object.getInt("id"), object.getString("name"), object.getString("description"));
+        } catch (JSONException ex) {
+            Log.e("JSONException when parse type", ex.getLocalizedMessage());
+            result = Type.UNKNOWN;
+        }
+        return result;
     }
 }

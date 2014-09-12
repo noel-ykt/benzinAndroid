@@ -2,7 +2,6 @@ package com.tabalab.benzinyakutsk;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -40,13 +39,11 @@ public class MainActivity extends Activity {
 
     ListView itemList;
 
-    private Context context;
     private static String url = "http://151.248.122.171:3000/prices";
 
-    private static final String VTYPE = "Type";
-    private static final String VCOLOR = "Color";
-    private static final String FUEL = "Fuel";
-    private static final String TREAD = "Tread";
+    private static final String TYPE = "type";
+    private static final String COMPANIES = "companies";
+    private static final String PRICE = "price";
 
     List<ListItem> itemsResult = new ArrayList<ListItem>();
 
@@ -65,17 +62,17 @@ public class MainActivity extends Activity {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     //Companies
-                    JSONArray jsonCompanies = jsonObject.getJSONArray("companies");
+                    JSONArray jsonCompanies = jsonObject.getJSONArray(COMPANIES);
                     for (int j = 0; j < jsonCompanies.length(); j++) {
                         JSONObject jsonCompany = jsonCompanies.getJSONObject(j);
-                        Company company = new Company(jsonCompany.getInt("id"), jsonCompany.getString("name"));
+                        Company company = Company.getFromJSON(jsonCompany);
                         companies.add(company);
                     }
                     //Type
-                    JSONObject jsonType = jsonObject.getJSONObject("type");
-                    Type type = new Type(jsonType.getInt("id"), jsonType.getString("name"), jsonType.getString("description"));
+                    JSONObject jsonType = jsonObject.getJSONObject(TYPE);
+                    Type type = Type.getFromJSON(jsonType);
                     //Price
-                    String price = jsonObject.getString("price");
+                    String price = jsonObject.getString(PRICE);
 
                     ListItem item = new ListItem(type, companies, price);
                     itemsResult.add(item);
@@ -107,7 +104,7 @@ public class MainActivity extends Activity {
         String responseResult = "[]";
 
         protected void onPreExecute() {
-            this.dialog.setMessage("Progress start");
+            this.dialog.setMessage("Загрузка данных...");
             this.dialog.show();
             this.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 public void onCancel(DialogInterface arg0) {
