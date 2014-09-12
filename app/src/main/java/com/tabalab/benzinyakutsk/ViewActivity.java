@@ -17,4 +17,10 @@ public class ViewActivity extends Activity {
         int typeId = getIntent().getIntExtra("typeId", 0);
         System.out.println(typeId);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.animator.slide_right_in, R.animator.slide_right_out);
+    }
 }
