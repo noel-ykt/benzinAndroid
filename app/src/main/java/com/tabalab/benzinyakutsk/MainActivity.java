@@ -12,26 +12,13 @@ import android.widget.ListView;
 
 import com.tabalab.benzinyakutsk.adapter.MainItemAdapter;
 import com.tabalab.benzinyakutsk.model.Company;
-import com.tabalab.benzinyakutsk.model.ListItem;
+import com.tabalab.benzinyakutsk.model.MainListItem;
 import com.tabalab.benzinyakutsk.model.Type;
 import com.tabalab.benzinyakutsk.util.JSONParser;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +27,13 @@ public class MainActivity extends Activity {
 
     ListView itemList;
 
-    private static String url = "http://151.248.122.171:3000/prices";
+    private static final String url = "http://151.248.122.171:3000/prices";
 
-    private static final String TYPE = "type";
-    private static final String COMPANIES = "companies";
-    private static final String PRICE = "price";
+    private static final String TAG_TYPE = "type";
+    private static final String TAG_COMPANIES = "companies";
+    private static final String TAG_PRICE = "price";
 
-    List<ListItem> itemsResult = new ArrayList<ListItem>();
+    List<MainListItem> itemsResult = new ArrayList<MainListItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +48,26 @@ public class MainActivity extends Activity {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 //Companies
-                JSONArray jsonCompanies = jsonObject.getJSONArray(COMPANIES);
+                JSONArray jsonCompanies = jsonObject.getJSONArray(TAG_COMPANIES);
                 for (int j = 0; j < jsonCompanies.length(); j++) {
                     JSONObject jsonCompany = jsonCompanies.getJSONObject(j);
-                    Company company = Company.getFromJSON(jsonCompany);
+                    Company company = Company.initFromJSON(jsonCompany);
                     companies.add(company);
                 }
                 //Type
-                JSONObject jsonType = jsonObject.getJSONObject(TYPE);
-                Type type = Type.getFromJSON(jsonType);
+                JSONObject jsonType = jsonObject.getJSONObject(TAG_TYPE);
+                Type type = Type.initFromJSON(jsonType);
                 //Price
-                String price = jsonObject.getString(PRICE);
+                String price = jsonObject.getString(TAG_PRICE);
 
-                ListItem item = new ListItem(type, companies, price);
+                MainListItem item = new MainListItem(type, companies, price);
                 itemsResult.add(item);
             } catch (Exception ex) {
                 Log.e("Parse Json Object", ex.getLocalizedMessage());
             }
         }
 
-        itemList = (ListView) findViewById(R.id.listView);
+        itemList = (ListView) findViewById(R.id.listMain);
 
         MainItemAdapter adapter = new MainItemAdapter(this, itemsResult);
         itemList.setAdapter(adapter);
@@ -89,7 +76,7 @@ public class MainActivity extends Activity {
     public void goToView(View v) {
         Intent intent = new Intent(this, ViewActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra("typeId", 42);
+        intent.putExtra("typeId", 4);
         startActivity(intent);
         overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
     }
@@ -120,6 +107,4 @@ public class MainActivity extends Activity {
             return null;
         }
     }
-
-
 }

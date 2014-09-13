@@ -20,9 +20,6 @@ import java.io.InputStreamReader;
 public class JSONParser {
     static JSONArray result = new JSONArray();
 
-    public JSONParser() {
-    }
-
     public static JSONArray getJSONFromUrl(String url) {
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();

@@ -2,7 +2,6 @@ package com.tabalab.benzinyakutsk.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,16 +9,16 @@ import android.widget.TextView;
 
 import com.tabalab.benzinyakutsk.R;
 import com.tabalab.benzinyakutsk.model.Company;
-import com.tabalab.benzinyakutsk.model.ListItem;
+import com.tabalab.benzinyakutsk.model.MainListItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainItemAdapter extends BaseAdapter {
-    private List<ListItem> list = new ArrayList<ListItem>();
+    private List<MainListItem> list = new ArrayList<MainListItem>();
     private LayoutInflater layoutInflater;
 
-    public MainItemAdapter(Context context, List<ListItem> list) {
+    public MainItemAdapter(Context context, List<MainListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -45,7 +44,7 @@ public class MainItemAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.activity_main_item, parent, false);
         }
-        ListItem item = getListItem(position);
+        MainListItem item = getListItem(position);
 
         TextView typeName = (TextView) view.findViewById(R.id.typeName);
         typeName.setText(item.getType().getName());
@@ -66,7 +65,7 @@ public class MainItemAdapter extends BaseAdapter {
         return view;
     }
 
-    private ListItem getListItem(int position) {
-        return (ListItem) getItem(position);
+    private MainListItem getListItem(int position) {
+        return (MainListItem) getItem(position);
     }
 }

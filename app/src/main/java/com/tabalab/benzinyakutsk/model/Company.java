@@ -32,7 +32,7 @@ public class Company {
         this.name = name;
     }
 
-    public static Company getFromJSON(JSONObject object) {
+    public static Company initFromJSON(JSONObject object) {
         Company result;
         try {
             result = new Company(object.getInt("id"), object.getString("name"));

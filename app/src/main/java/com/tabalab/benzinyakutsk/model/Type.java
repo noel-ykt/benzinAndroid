@@ -42,7 +42,7 @@ public class Type {
         this.description = description;
     }
 
-    public static Type getFromJSON(JSONObject object) {
+    public static Type initFromJSON(JSONObject object) {
         Type result;
         try {
             result = new Type(object.getInt("id"), object.getString("name"), object.getString("description"));
