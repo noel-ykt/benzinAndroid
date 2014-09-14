@@ -27,7 +27,7 @@ public class ViewActivity extends Activity {
 
     int typeId;
 
-    private static final String url = "http://151.248.122.171:3000/prices/type";
+    private static final String URL = "http://151.248.122.171:3000/prices/type";
 
     private static final String TAG_TYPE = "type";
     private static final String TAG_COMPANY = "company";
@@ -40,7 +40,7 @@ public class ViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
-        typeId = getIntent().getIntExtra("typeId", 0);
+        typeId = getIntent().getIntExtra(MainActivity.EXTRA_TYPEID, 0);
         new ProgressTask().execute();
     }
 
@@ -79,20 +79,29 @@ public class ViewActivity extends Activity {
     }
 
     private class ProgressTask extends AsyncTask<String, String, Void> {
+        private ProgressDialog dialog = new ProgressDialog(ViewActivity.this);
         JSONArray responseJSONArray;
 
         protected void onPreExecute() {
-
+            this.dialog.setMessage(getString(R.string.loading));
+            this.dialog.show();
+            this.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                public void onCancel(DialogInterface arg0) {
+                    ProgressTask.this.cancel(true);
+                }
+            });
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            this.dialog.hide();
+            this.dialog.dismiss();
             initData(responseJSONArray);
         }
 
         @Override
         protected Void doInBackground(String... strings) {
-            responseJSONArray = JSONParser.getJSONFromUrl(url + typeId);
+            responseJSONArray = JSONParser.getJSONFromUrl(URL + typeId);
             return null;
         }
     }

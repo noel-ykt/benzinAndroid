@@ -6,9 +6,7 @@
     android:baselineAligned="false"
     android:background="#000"
     android:weightSum="2"
-    android:id="@+id/viewItemLayout"
-    android:onClick="goToView">
-
+    android:id="@+id/viewItemLayout">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -41,6 +39,7 @@
             android:layout_marginBottom="10dp"
             android:textColor="#ffcc00"
             android:fontFamily="sans-serif-thin"/>
+
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -72,6 +71,6 @@
             android:layout_marginBottom="10dp"
             android:textColor="#999"
             android:fontFamily="sans-serif-thin"/>
-    </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>
