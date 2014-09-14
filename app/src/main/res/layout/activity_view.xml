@@ -5,13 +5,53 @@
     android:background="#000"
     tools:context="com.tabalab.benzinyakutsk.ViewActivity">
 
-    <ListView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:background="#55ffcc00"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back"
+                android:src="@drawable/ic_back"
+                android:cropToPadding="false"
+                android:padding="17dp" />
+            <TextView
+                android:id="@+id/viewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="center_vertical|center"
+                android:layout_weight="1"
+                android:textIsSelectable="false"
+                android:textSize="40dp"
+                android:textColor="#FFCC00"
+                android:singleLine="false"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="sans-serif-thin"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/map"
+                android:src="@drawable/ic_back"
+                android:padding="17dp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#55ffcc00" />
+    </LinearLayout>
 
 </RelativeLayout>

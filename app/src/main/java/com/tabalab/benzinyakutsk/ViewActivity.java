@@ -3,10 +3,17 @@ package com.tabalab.benzinyakutsk;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tabalab.benzinyakutsk.adapter.ViewItemAdapter;
 import com.tabalab.benzinyakutsk.model.Company;
@@ -37,10 +44,18 @@ public class ViewActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
         typeId = getIntent().getIntExtra(MainActivity.EXTRA_TYPEID, 0);
+        ImageView imageBack = (ImageView) findViewById(R.id.back);
+        imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         new ProgressTask().execute();
     }
 
@@ -64,6 +79,9 @@ public class ViewActivity extends Activity {
                 Type type = Type.initFromJSON(jsonType);
                 //Price
                 String price = jsonObject.getString(TAG_PRICE);
+
+                TextView title = (TextView) findViewById(R.id.viewTitle);
+                title.setText(type.getName());
 
                 ViewListItem item = new ViewListItem(type, company, price);
                 itemsResult.add(item);
