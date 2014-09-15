@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.google.common.base.Joiner;
 import com.tabalab.benzinyakutsk.R;
 import com.tabalab.benzinyakutsk.model.Company;
 import com.tabalab.benzinyakutsk.model.MainListItem;
@@ -60,7 +61,7 @@ public class MainItemAdapter extends BaseAdapter {
         for (Company company : item.getCompanies()) {
             companyNamesArr.add(company.getName());
         }
-        companyNames.setText(companyNamesArr.toString());
+        companyNames.setText(Joiner.on(", ").join(companyNamesArr));
 
         return view;
     }
