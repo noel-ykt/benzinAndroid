@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import ru.frozolab.benzin.model.MainListItem;
 public class MainActivity extends Activity {
 
     ListView itemList;
+    ImageView aboutImg;
 
     public static final String EXTRA_TYPEID = "com.tabalab.benzinyakutsk.typeid";
 
@@ -32,6 +34,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new ProgressTask().execute();
+
+        aboutImg = (ImageView) findViewById(R.id.about);
+        aboutImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+                overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
+            }
+        });
     }
 
     private void initData() {
