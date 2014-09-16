@@ -1,4 +1,4 @@
-package com.tabalab.benzinyakutsk;
+package ru.frozolab.benzin;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tabalab.benzinyakutsk.adapter.ViewItemAdapter;
-import com.tabalab.benzinyakutsk.model.ViewListItem;
-import com.tabalab.benzinyakutsk.util.Cache;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.frozolab.benzin.adapter.ViewItemAdapter;
+import ru.frozolab.benzin.model.ViewListItem;
+import ru.frozolab.benzin.util.Cache;
 
 
 public class ViewActivity extends Activity {
@@ -52,12 +52,17 @@ public class ViewActivity extends Activity {
         itemList = (ListView) findViewById(R.id.listView);
 
         String typeName = "";
-        for (ViewListItem item: itemsResult) {
+        String typeDesc = "";
+        for (ViewListItem item : itemsResult) {
             typeName = item.getType().getName();
+            typeDesc = item.getType().getDescription();
         }
 
         TextView viewTitle = (TextView) findViewById(R.id.viewTitle);
         viewTitle.setText(typeName);
+
+        TextView viewTypeDesc = (TextView) findViewById(R.id.viewTitleHelp);
+        viewTypeDesc.setText(typeDesc);
 
         ViewItemAdapter adapter = new ViewItemAdapter(this, itemsResult);
         itemList.setAdapter(adapter);

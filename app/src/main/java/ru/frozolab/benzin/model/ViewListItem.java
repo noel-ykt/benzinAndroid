@@ -1,14 +1,14 @@
-package com.tabalab.benzinyakutsk.model;
+package ru.frozolab.benzin.model;
 
 import android.util.Log;
-
-import com.tabalab.benzinyakutsk.util.JSONParser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.frozolab.benzin.util.JSONParser;
 
 public class ViewListItem {
     private static final String URL = "http://151.248.122.171:3000/prices/type";

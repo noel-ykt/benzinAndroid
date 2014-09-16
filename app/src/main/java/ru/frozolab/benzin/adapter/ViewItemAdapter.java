@@ -1,18 +1,17 @@
-package com.tabalab.benzinyakutsk.adapter;
+package ru.frozolab.benzin.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tabalab.benzinyakutsk.R;
-import com.tabalab.benzinyakutsk.model.ViewListItem;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.frozolab.benzin.R;
+import ru.frozolab.benzin.model.ViewListItem;
 
 public class ViewItemAdapter extends BaseAdapter {
     private List<ViewListItem> list = new ArrayList<ViewListItem>();

@@ -1,4 +1,4 @@
-package com.tabalab.benzinyakutsk.util;
+package ru.frozolab.benzin.util;
 
 import android.util.Log;
 

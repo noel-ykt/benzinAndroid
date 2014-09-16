@@ -1,4 +1,4 @@
-package com.tabalab.benzinyakutsk;
+package ru.frozolab.benzin;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -11,11 +11,11 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.tabalab.benzinyakutsk.adapter.MainItemAdapter;
-import com.tabalab.benzinyakutsk.model.MainListItem;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.frozolab.benzin.adapter.MainItemAdapter;
+import ru.frozolab.benzin.model.MainListItem;
 
 
 public class MainActivity extends Activity {

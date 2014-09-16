@@ -1,4 +1,4 @@
-package com.tabalab.benzinyakutsk.util;
+package ru.frozolab.benzin.util;
 
 
 import android.annotation.TargetApi;
@@ -8,12 +8,13 @@ import android.util.Log;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.tabalab.benzinyakutsk.model.MainListItem;
-import com.tabalab.benzinyakutsk.model.ViewListItem;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
+import ru.frozolab.benzin.model.MainListItem;
+import ru.frozolab.benzin.model.ViewListItem;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class Cache {

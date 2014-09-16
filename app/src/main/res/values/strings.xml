@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello_world">BenzinYakutsk</string>
-    <string name="app_name">BenzinYakutsk</string>
-    <string name="title_activity_view">ViewActivity</string>
+    <string name="app_name">Топливо Якутск</string>
     <string name="loading">Загрузка данных...</string>
-
 </resources>

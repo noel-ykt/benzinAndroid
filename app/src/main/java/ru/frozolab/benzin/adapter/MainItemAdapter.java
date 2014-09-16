@@ -1,4 +1,4 @@
-package com.tabalab.benzinyakutsk.adapter;
+package ru.frozolab.benzin.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,12 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.google.common.base.Joiner;
-import com.tabalab.benzinyakutsk.R;
-import com.tabalab.benzinyakutsk.model.Company;
-import com.tabalab.benzinyakutsk.model.MainListItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.frozolab.benzin.R;
+import ru.frozolab.benzin.model.Company;
+import ru.frozolab.benzin.model.MainListItem;
 
 public class MainItemAdapter extends BaseAdapter {
     private List<MainListItem> list = new ArrayList<MainListItem>();
