@@ -26,7 +26,7 @@
                 android:id="@+id/viewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="ДТ"
+                android:text="Тип"
                 android:gravity="center_vertical|center"
                 android:layout_weight="1"
                 android:textIsSelectable="false"
@@ -55,7 +55,8 @@
                 android:text="Назад"
                 android:textColor="#999"
                 android:gravity="center_vertical|center"
-                android:width="60dp"/>
+                android:width="60dp"
+                android:fontFamily="sans-serif-thin"/>
             <TextView
                 android:id="@+id/viewTitleHelp"
                 android:layout_width="match_parent"
@@ -72,7 +73,8 @@
                 android:text="Карта"
                 android:visibility="invisible"
                 android:gravity="center_vertical|center"
-                android:width="60dp"/>
+                android:width="60dp"
+                android:fontFamily="sans-serif-thin"/>
         </LinearLayout>
 
         <ListView
