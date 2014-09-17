@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|center"
-                android:text="Дизельное топливо"
+                android:text="Тип"
                 android:layout_weight="1"
                 android:textColor="#999"
                 android:fontFamily="sans-serif-thin"/>
