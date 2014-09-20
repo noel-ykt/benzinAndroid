@@ -3,6 +3,7 @@ package ru.frozolab.benzin;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -32,11 +33,23 @@ public class ViewActivity extends Activity {
         setContentView(R.layout.activity_view);
 
         typeId = getIntent().getIntExtra(MainActivity.EXTRA_TYPEID, 0);
+
         ImageView imageBack = (ImageView) findViewById(R.id.back);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        ImageView imageMap = (ImageView) findViewById(R.id.map);
+        imageMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+                overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
             }
         });
         new ProgressTask().execute();

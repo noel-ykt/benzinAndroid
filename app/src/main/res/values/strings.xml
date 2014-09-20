@@ -5,7 +5,10 @@
     <string name="loading">Загрузка данных...</string>
     <string name="title_activity_view">Просмотр цен</string>
     <string name="title_activity_about">О программе</string>
-    <string name="about_dev">Разработка: YDM group</string>
-    <string name="about_contact_us">Вы можете связаться с нами по email: ydm.sup@gmail.com</string>
+    <string name="about_dev">Разработка: FrozoLab</string>
+    <string name="about_contact_us">Вы можете связаться с нами по email: frozolab@gmail.com</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
