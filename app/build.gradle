@@ -14,12 +14,16 @@ android {
     defaultConfig {
         applicationId 'ru.frozolab.benzin'
         minSdkVersion 11
-        targetSdkVersion 17
+        targetSdkVersion 16
         versionCode 2
         versionName '1.5'
         signingConfig signingConfigs.android
     }
     buildTypes {
+        debug {
+            runProguard false
+            debuggable true
+        }
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
