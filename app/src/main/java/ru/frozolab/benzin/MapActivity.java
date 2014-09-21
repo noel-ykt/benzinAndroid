@@ -2,6 +2,7 @@ package ru.frozolab.benzin;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,6 +12,7 @@ import android.view.Window;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapsInitializer;
@@ -56,8 +58,7 @@ public class MapActivity extends Activity implements LocationListener {
                 if (location != null) {
                     onLocationChanged(location);
                 }
-                locationManager.requestLocationUpdates(provider, 2000, 0, this);
-
+                locationManager.requestLocationUpdates(provider, 0, 0, this);
                 Marker hamburg = map.addMarker(new MarkerOptions().position(HAMBURG)
                         .title("Hamburg"));
 //                Marker kiel = map.addMarker(new MarkerOptions()
@@ -85,10 +86,10 @@ public class MapActivity extends Activity implements LocationListener {
         LatLng latLng = new LatLng(latitude, longitude);
 
         // Showing the current location in Google Map
-//        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
         // Zoom in the Google Map
-//        map.animateCamera(CameraUpdateFactory.zoomTo(5));
+        map.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
     }
 
     @Override
