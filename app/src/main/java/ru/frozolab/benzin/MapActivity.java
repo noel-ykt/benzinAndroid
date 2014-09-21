@@ -86,10 +86,10 @@ public class MapActivity extends Activity implements LocationListener {
         LatLng latLng = new LatLng(latitude, longitude);
 
         // Showing the current location in Google Map
-        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
         // Zoom in the Google Map
-        map.animateCamera(CameraUpdateFactory.zoomTo(5));
+//        map.animateCamera(CameraUpdateFactory.zoomTo(5));
     }
 
     @Override
