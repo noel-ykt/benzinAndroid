@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class ViewActivity extends Activity {
 
     ListView itemList;
     int typeId;
+    public static final String EXTRA_COMPANY_FULL_NAME = "com.tabalab.benzinyakutsk.companyFullName";
     List<ViewListItem> itemsResult = new ArrayList<ViewListItem>();
 
     @Override
@@ -79,6 +81,17 @@ public class ViewActivity extends Activity {
 
         ViewItemAdapter adapter = new ViewItemAdapter(this, itemsResult);
         itemList.setAdapter(adapter);
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ViewListItem selectedItem = (ViewListItem) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra(EXTRA_COMPANY_FULL_NAME, selectedItem.getCompany().getFullName());
+                startActivity(intent);
+                overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
+            }
+        });
     }
 
     private class ProgressTask extends AsyncTask<String, String, Void> {

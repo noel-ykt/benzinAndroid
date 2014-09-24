@@ -70,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/mapHelp"
                 android:text="Карта"
-                android:visibility="invisible"
+                android:textColor="#999"
                 android:gravity="center_vertical|center"
                 android:width="60dp"
                 android:fontFamily="sans-serif-thin"/>
