@@ -1,6 +1,5 @@
 package ru.frozolab.benzin.util;
 
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.util.Log;
@@ -13,12 +12,12 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import ru.frozolab.benzin.model.MainListItem;
-import ru.frozolab.benzin.model.ViewListItem;
+import ru.frozolab.benzin.model.Item;
+import ru.frozolab.benzin.model.ListItem;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class Cache {
-    enum Key {MAIN_ITEMS}
+    enum Key {MAIN_ITEMS, ALL_ITEMS}
 
     private static LoadingCache<Key, Object> PERSISTENCE_STORAGE = CacheBuilder
             .newBuilder()
@@ -26,10 +25,13 @@ public class Cache {
             .maximumSize(10)
             .build(new CacheLoader<Key, Object>() {
                 public Object load(Key key) throws Exception {
-                    Object obj = null;
+                    Object obj;
                     switch (key) {
                         case MAIN_ITEMS:
-                            obj = MainListItem.loadItems();
+                            obj = Item.getPreparedMainItems();
+                            break;
+                        case ALL_ITEMS:
+                            obj = Item.loadItems();
                             break;
                         default:
                             throw new Exception("unknown persistence cache key");
@@ -38,13 +40,13 @@ public class Cache {
                 }
             });
 
-    private static LoadingCache<Integer, List<ViewListItem>> TYPE_COMPANIES = CacheBuilder
+    private static LoadingCache<Integer, List<ListItem>> VIEW_ITEMS = CacheBuilder
             .newBuilder()
             .maximumSize(10)
             .expireAfterWrite(12, TimeUnit.HOURS)
-            .build(new CacheLoader<Integer, List<ViewListItem>>() {
-                public List<ViewListItem> load(Integer key) {
-                    return ViewListItem.loadItems(key);
+            .build(new CacheLoader<Integer, List<ListItem>>() {
+                public List<ListItem> load(Integer typeId) {
+                    return Item.getPreparedViewItems(typeId);
                 }
             });
 
@@ -54,25 +56,33 @@ public class Cache {
             obj = PERSISTENCE_STORAGE.get(key);
         } catch (ExecutionException e) {
             Log.e("error while getting from cache, key = " + key.name(), e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.e("error while getting from cache, key = " + key.name(), e.getLocalizedMessage());
         }
         return obj;
     }
 
-    private static Object getFromTypeCompanies(int key) {
+    private static Object getViewItemsFrom(int key) {
         Object obj = null;
         try {
-            obj = TYPE_COMPANIES.get(key);
+            obj = VIEW_ITEMS.get(key);
         } catch (ExecutionException e) {
+            Log.e("error while getting from cache, key = " + key, e.getLocalizedMessage());
+        } catch (Exception e) {
             Log.e("error while getting from cache, key = " + key, e.getLocalizedMessage());
         }
         return obj;
     }
 
-    public static List<MainListItem> getMainItems() {
-        return (List<MainListItem>) getFromPersistence(Key.MAIN_ITEMS);
+    public static List<Item> getItems() {
+        return (List<Item>) getFromPersistence(Key.ALL_ITEMS);
     }
 
-    public static List<ViewListItem> getViewItems(int key) {
-        return (List<ViewListItem>) getFromTypeCompanies(key);
+    public static List<ListItem> getMainItems() {
+        return (List<ListItem>) getFromPersistence(Key.MAIN_ITEMS);
+    }
+
+    public static List<ListItem> getViewItems(int typeId) {
+        return (List<ListItem>) getViewItemsFrom(typeId);
     }
 }

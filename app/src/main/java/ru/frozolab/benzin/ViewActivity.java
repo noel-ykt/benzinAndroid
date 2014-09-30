@@ -17,16 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.frozolab.benzin.adapter.ViewItemAdapter;
-import ru.frozolab.benzin.model.ViewListItem;
-import ru.frozolab.benzin.util.Cache;
+import ru.frozolab.benzin.model.Item;
+import ru.frozolab.benzin.model.ListItem;
 
 
 public class ViewActivity extends Activity {
 
     ListView itemList;
     int typeId;
-    public static final String EXTRA_COMPANY_FULL_NAME = "com.tabalab.benzinyakutsk.companyFullName";
-    List<ViewListItem> itemsResult = new ArrayList<ViewListItem>();
+    public static final String EXTRA_COMPANY_FULL_NAME = "ru.frozolab.benzin.companyFullName";
+    List<ListItem> itemsResult = new ArrayList<ListItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class ViewActivity extends Activity {
 
         String typeName = "";
         String typeDesc = "";
-        for (ViewListItem item : itemsResult) {
+        for (ListItem item : itemsResult) {
             typeName = item.getType().getName();
             typeDesc = item.getType().getDescription();
         }
@@ -84,10 +84,10 @@ public class ViewActivity extends Activity {
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ViewListItem selectedItem = (ViewListItem) parent.getItemAtPosition(position);
+                ListItem selectedItem = (ListItem) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra(EXTRA_COMPANY_FULL_NAME, selectedItem.getCompany().getFullName());
+                intent.putExtra(EXTRA_COMPANY_FULL_NAME, selectedItem.getCompanies().get(0).getFullName());
                 startActivity(intent);
                 overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
             }
@@ -116,7 +116,7 @@ public class ViewActivity extends Activity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            itemsResult = Cache.getViewItems(typeId);
+            itemsResult = Item.getView(typeId);
             return null;
         }
     }

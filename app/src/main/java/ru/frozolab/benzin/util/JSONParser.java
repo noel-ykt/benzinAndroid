@@ -9,13 +9,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class JSONParser {
     static JSONArray result = new JSONArray();
@@ -23,27 +21,23 @@ public class JSONParser {
     public static JSONArray getJSONFromUrl(String url) {
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url);
         try {
+            HttpGet httpGet = new HttpGet(url);
             HttpResponse response = client.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
             if (statusCode == 200) {
                 HttpEntity entity = response.getEntity();
-                InputStream content = entity.getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                }
-                content.close();
-                reader.close();
+                builder.append(EntityUtils.toString(entity));
             } else {
                 Log.e("==>", "Failed to download file");
             }
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            e.getLocalizedMessage();
         } catch (IOException e) {
+            e.getLocalizedMessage();
+        } catch (Exception e) {
+            Log.e("JSON url error", e.getLocalizedMessage());
             e.printStackTrace();
         }
 

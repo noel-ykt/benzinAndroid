@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.frozolab.benzin.R;
-import ru.frozolab.benzin.model.ViewListItem;
+import ru.frozolab.benzin.model.ListItem;
 
 public class ViewItemAdapter extends BaseAdapter {
-    private List<ViewListItem> list = new ArrayList<ViewListItem>();
+    private List<ListItem> list = new ArrayList<ListItem>();
     private LayoutInflater layoutInflater;
 
-    public ViewItemAdapter(Context context, List<ViewListItem> list) {
+    public ViewItemAdapter(Context context, List<ListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -43,18 +43,18 @@ public class ViewItemAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.activity_view_item, parent, false);
         }
-        ViewListItem item = getListItem(position);
+        ListItem item = getListItem(position);
 
         TextView companyName = (TextView) view.findViewById(R.id.companyName);
-        companyName.setText(item.getCompany().getName());
+        companyName.setText(item.getCompanies().get(0).getName());
 
         TextView price = (TextView) view.findViewById(R.id.price);
-        price.setText(item.getPrice());
+        price.setText(item.getPrice().getAmount().toString());
 
         return view;
     }
 
-    private ViewListItem getListItem(int position) {
-        return (ViewListItem) getItem(position);
+    private ListItem getListItem(int position) {
+        return (ListItem) getItem(position);
     }
 }

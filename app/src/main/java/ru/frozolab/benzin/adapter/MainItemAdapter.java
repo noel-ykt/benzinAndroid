@@ -14,13 +14,13 @@ import java.util.List;
 
 import ru.frozolab.benzin.R;
 import ru.frozolab.benzin.model.Company;
-import ru.frozolab.benzin.model.MainListItem;
+import ru.frozolab.benzin.model.ListItem;
 
 public class MainItemAdapter extends BaseAdapter {
-    private List<MainListItem> list = new ArrayList<MainListItem>();
+    private List<ListItem> list = new ArrayList<ListItem>();
     private LayoutInflater layoutInflater;
 
-    public MainItemAdapter(Context context, List<MainListItem> list) {
+    public MainItemAdapter(Context context, List<ListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -46,7 +46,7 @@ public class MainItemAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.activity_main_item, parent, false);
         }
-        MainListItem item = getListItem(position);
+        ListItem item = getListItem(position);
 
         TextView typeName = (TextView) view.findViewById(R.id.typeName);
         typeName.setText(item.getType().getName());
@@ -55,7 +55,7 @@ public class MainItemAdapter extends BaseAdapter {
         typeDesc.setText(item.getType().getDescription());
 
         TextView price = (TextView) view.findViewById(R.id.price);
-        price.setText(item.getPrice());
+        price.setText(item.getPrice().getAmount().toString());
 
         TextView companyNames = (TextView) view.findViewById(R.id.companyName);
         ArrayList<String> companyNamesArr = new ArrayList<String>();
@@ -67,7 +67,7 @@ public class MainItemAdapter extends BaseAdapter {
         return view;
     }
 
-    private MainListItem getListItem(int position) {
-        return (MainListItem) getItem(position);
+    private ListItem getListItem(int position) {
+        return (ListItem) getItem(position);
     }
 }

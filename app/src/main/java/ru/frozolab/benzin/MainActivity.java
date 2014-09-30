@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.frozolab.benzin.adapter.MainItemAdapter;
-import ru.frozolab.benzin.model.MainListItem;
+import ru.frozolab.benzin.model.Item;
+import ru.frozolab.benzin.model.ListItem;
 
 
 public class MainActivity extends Activity {
@@ -24,9 +25,9 @@ public class MainActivity extends Activity {
     ListView itemList;
     ImageView aboutImg;
 
-    public static final String EXTRA_TYPEID = "com.tabalab.benzinyakutsk.typeid";
+    public static final String EXTRA_TYPEID = "ru.frozolab.benzin.typeid";
 
-    List<MainListItem> itemsResult = new ArrayList<MainListItem>();
+    List<ListItem> itemsResult = new ArrayList<ListItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends Activity {
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainListItem selectedItem = (MainListItem) parent.getItemAtPosition(position);
+                ListItem selectedItem = (ListItem) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra(EXTRA_TYPEID, selectedItem.getType().getId());
@@ -87,7 +88,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            itemsResult = MainListItem.getAll();
+            itemsResult = Item.getMain();
             return null;
         }
     }
