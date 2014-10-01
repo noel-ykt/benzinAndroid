@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ru.frozolab.benzin.adapter.ViewItemAdapter;
@@ -117,6 +118,7 @@ public class ViewActivity extends Activity {
         @Override
         protected Void doInBackground(String... strings) {
             itemsResult = Item.getView(typeId);
+            Collections.sort(itemsResult, ListItem.Comparators.PRICE);
             return null;
         }
     }

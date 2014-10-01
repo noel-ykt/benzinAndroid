@@ -2,9 +2,21 @@ package ru.frozolab.benzin.model;
 
 import org.joda.money.Money;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ListItem {
+
+    public static class Comparators {
+
+        public static Comparator<ListItem> PRICE = new Comparator<ListItem>() {
+            @Override
+            public int compare(ListItem o1, ListItem o2) {
+                return o1.getPrice().getAmount().compareTo(o2.getPrice().getAmount());
+            }
+        };
+    }
+
     private Type type;
     private List<Company> companies;
     private Money price;

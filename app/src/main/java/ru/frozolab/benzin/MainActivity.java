@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ru.frozolab.benzin.adapter.MainItemAdapter;
@@ -89,6 +90,7 @@ public class MainActivity extends Activity {
         @Override
         protected Void doInBackground(String... strings) {
             itemsResult = Item.getMain();
+            Collections.sort(itemsResult, ListItem.Comparators.PRICE);
             return null;
         }
     }
