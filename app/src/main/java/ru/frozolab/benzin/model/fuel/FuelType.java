@@ -1,18 +1,18 @@
-package ru.frozolab.benzin.model;
+package ru.frozolab.benzin.model.fuel;
 
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Type {
+public class FuelType {
     private int id;
     private String name;
     private String description;
 
-    public static final Type UNKNOWN = new Type(0, "Unknown", "Unknown");
+    public static final FuelType UNKNOWN = new FuelType(0, "Unknown", "Unknown");
 
-    public Type(int id, String name, String description) {
+    public FuelType(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -42,13 +42,13 @@ public class Type {
         this.description = description;
     }
 
-    public static Type initFromJSON(JSONObject object) {
-        Type result;
+    public static FuelType initFromJSON(JSONObject object) {
+        FuelType result;
         try {
-            result = new Type(object.getInt("id"), object.getString("name"), object.getString("description"));
+            result = new FuelType(object.getInt("id"), object.getString("name"), object.getString("description"));
         } catch (JSONException ex) {
             Log.e("JSONException when parse type", ex.getLocalizedMessage());
-            result = Type.UNKNOWN;
+            result = FuelType.UNKNOWN;
         }
         return result;
     }

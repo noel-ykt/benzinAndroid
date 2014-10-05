@@ -12,12 +12,19 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import ru.frozolab.benzin.model.Item;
-import ru.frozolab.benzin.model.ListItem;
+import ru.frozolab.benzin.model.currency.CurrencyItem;
+import ru.frozolab.benzin.model.currency.CurrencyListItem;
+import ru.frozolab.benzin.model.fuel.FuelItem;
+import ru.frozolab.benzin.model.fuel.FuelListItem;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class Cache {
-    enum Key {MAIN_ITEMS, ALL_ITEMS}
+    enum Key {
+        FUEL_MAIN_ITEMS,
+        FUEL_ALL_ITEMS,
+        CURRENCY_MAIN_ITEMS,
+        CURRENCY_ALL_ITEMS
+    }
 
     private static LoadingCache<Key, Object> PERSISTENCE_STORAGE = CacheBuilder
             .newBuilder()
@@ -27,11 +34,17 @@ public class Cache {
                 public Object load(Key key) throws Exception {
                     Object obj;
                     switch (key) {
-                        case MAIN_ITEMS:
-                            obj = Item.getPreparedMainItems();
+                        case FUEL_MAIN_ITEMS:
+                            obj = FuelItem.getPreparedMainItems();
                             break;
-                        case ALL_ITEMS:
-                            obj = Item.loadItems();
+                        case FUEL_ALL_ITEMS:
+                            obj = FuelItem.loadItems();
+                            break;
+                        case CURRENCY_MAIN_ITEMS:
+                            obj = CurrencyItem.getPreparedMainItems();
+                            break;
+                        case CURRENCY_ALL_ITEMS:
+                            obj = CurrencyItem.loadItems();
                             break;
                         default:
                             throw new Exception("unknown persistence cache key");
@@ -40,13 +53,23 @@ public class Cache {
                 }
             });
 
-    private static LoadingCache<Integer, List<ListItem>> VIEW_ITEMS = CacheBuilder
+    private static LoadingCache<Integer, List<FuelListItem>> FUEL_VIEW_ITEMS = CacheBuilder
             .newBuilder()
             .maximumSize(10)
             .expireAfterWrite(12, TimeUnit.HOURS)
-            .build(new CacheLoader<Integer, List<ListItem>>() {
-                public List<ListItem> load(Integer typeId) {
-                    return Item.getPreparedViewItems(typeId);
+            .build(new CacheLoader<Integer, List<FuelListItem>>() {
+                public List<FuelListItem> load(Integer typeId) {
+                    return FuelItem.getPreparedViewItems(typeId);
+                }
+            });
+
+    private static LoadingCache<Integer, List<CurrencyListItem>> CURRENCY_VIEW_ITEMS = CacheBuilder
+            .newBuilder()
+            .maximumSize(10)
+            .expireAfterWrite(12, TimeUnit.HOURS)
+            .build(new CacheLoader<Integer, List<CurrencyListItem>>() {
+                public List<CurrencyListItem> load(Integer typeId) {
+                    return CurrencyItem.getPreparedViewItems(typeId);
                 }
             });
 
@@ -62,10 +85,10 @@ public class Cache {
         return obj;
     }
 
-    private static Object getViewItemsFrom(int key) {
+    private static Object getFuelViewItemsFrom(int key) {
         Object obj = null;
         try {
-            obj = VIEW_ITEMS.get(key);
+            obj = FUEL_VIEW_ITEMS.get(key);
         } catch (ExecutionException e) {
             Log.e("error while getting from cache, key = " + key, e.getLocalizedMessage());
         } catch (Exception e) {
@@ -74,15 +97,39 @@ public class Cache {
         return obj;
     }
 
-    public static List<Item> getItems() {
-        return (List<Item>) getFromPersistence(Key.ALL_ITEMS);
+    private static Object getCurrencyViewItemsFrom(int key) {
+        Object obj = null;
+        try {
+            obj = CURRENCY_VIEW_ITEMS.get(key);
+        } catch (ExecutionException e) {
+            Log.e("error while getting from cache, key = " + key, e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.e("error while getting from cache, key = " + key, e.getLocalizedMessage());
+        }
+        return obj;
     }
 
-    public static List<ListItem> getMainItems() {
-        return (List<ListItem>) getFromPersistence(Key.MAIN_ITEMS);
+    public static List<FuelItem> getFuelItems() {
+        return (List<FuelItem>) getFromPersistence(Key.FUEL_ALL_ITEMS);
     }
 
-    public static List<ListItem> getViewItems(int typeId) {
-        return (List<ListItem>) getViewItemsFrom(typeId);
+    public static List<FuelListItem> getFuelMainItems() {
+        return (List<FuelListItem>) getFromPersistence(Key.FUEL_MAIN_ITEMS);
+    }
+
+    public static List<FuelListItem> getFuelViewItems(int typeId) {
+        return (List<FuelListItem>) getFuelViewItemsFrom(typeId);
+    }
+
+    public static List<CurrencyItem> getCurrencyItems() {
+        return (List<CurrencyItem>) getFromPersistence(Key.CURRENCY_ALL_ITEMS);
+    }
+
+    public static List<CurrencyListItem> getCurrencyMainItems() {
+        return (List<CurrencyListItem>) getFromPersistence(Key.CURRENCY_MAIN_ITEMS);
+    }
+
+    public static List<CurrencyListItem> getCurrencyViewItems(int typeId) {
+        return (List<CurrencyListItem>) getCurrencyViewItemsFrom(typeId);
     }
 }

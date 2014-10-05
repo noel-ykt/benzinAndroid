@@ -1,4 +1,4 @@
-package ru.frozolab.benzin.adapter;
+package ru.frozolab.benzin.adapter.currency;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.frozolab.benzin.R;
-import ru.frozolab.benzin.model.Company;
-import ru.frozolab.benzin.model.ListItem;
+import ru.frozolab.benzin.model.currency.CurrencyCompany;
+import ru.frozolab.benzin.model.currency.CurrencyListItem;
 
-public class MainItemAdapter extends BaseAdapter {
-    private List<ListItem> list = new ArrayList<ListItem>();
+public class CurrencyMainItemAdapter extends BaseAdapter {
+    private List<CurrencyListItem> list = new ArrayList<CurrencyListItem>();
     private LayoutInflater layoutInflater;
 
-    public MainItemAdapter(Context context, List<ListItem> list) {
+    public CurrencyMainItemAdapter(Context context, List<CurrencyListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -44,30 +44,30 @@ public class MainItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.activity_main_item, parent, false);
+            view = layoutInflater.inflate(R.layout.activity_main_currency_item, parent, false);
         }
-        ListItem item = getListItem(position);
+        CurrencyListItem item = getListItem(position);
 
         TextView typeName = (TextView) view.findViewById(R.id.typeName);
-        typeName.setText(item.getType().getName());
+        typeName.setText(item.getCurrencyType().getName());
 
         TextView typeDesc = (TextView) view.findViewById(R.id.typeDesc);
-        typeDesc.setText(item.getType().getDescription());
+        typeDesc.setText(item.getCurrencyType().getType());
 
         TextView price = (TextView) view.findViewById(R.id.price);
-        price.setText(item.getPrice().getAmount().toString());
+        price.setText(item.getPriceSale().getAmount().toString());
 
         TextView companyNames = (TextView) view.findViewById(R.id.companyName);
         ArrayList<String> companyNamesArr = new ArrayList<String>();
-        for (Company company : item.getCompanies()) {
-            companyNamesArr.add(company.getName());
+        for (CurrencyCompany currencyCompany : item.getCompanies()) {
+            companyNamesArr.add(currencyCompany.getName());
         }
         companyNames.setText(Joiner.on(", ").join(companyNamesArr));
 
         return view;
     }
 
-    private ListItem getListItem(int position) {
-        return (ListItem) getItem(position);
+    private CurrencyListItem getListItem(int position) {
+        return (CurrencyListItem) getItem(position);
     }
 }

@@ -14,7 +14,7 @@ public class MapActivity extends Activity {
 
     WebView webView;
     String companyFullName;
-    private final String url = "http://map.frozolab.ru/?what=АЗС%20";
+    private final String url = "http://map.frozolab.ru/?what=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,25 +17,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ru.frozolab.benzin.adapter.fuel.FuelViewItemAdapter;
-import ru.frozolab.benzin.model.fuel.FuelItem;
-import ru.frozolab.benzin.model.fuel.FuelListItem;
+import ru.frozolab.benzin.adapter.currency.CurrencyViewItemAdapter;
+import ru.frozolab.benzin.model.currency.CurrencyItem;
+import ru.frozolab.benzin.model.currency.CurrencyListItem;
 
 
-public class ViewActivity extends Activity {
+public class CurrencyViewActivity extends Activity {
 
     ListView itemList;
     int typeId;
-    public static final String EXTRA_COMPANY_FULL_NAME = "ru.frozolab.benzin.companyFullName";
-    List<FuelListItem> itemsResult = new ArrayList<FuelListItem>();
+    public static final String EXTRA_COMPANY_FULL_NAME = "ru.frozolab.currency.companyFullName";
+    List<CurrencyListItem> itemsResult = new ArrayList<CurrencyListItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_fuel);
+        setContentView(R.layout.activity_view_currency);
 
-        typeId = getIntent().getIntExtra(FuelMainActivity.EXTRA_TYPEID, 0);
+        typeId = getIntent().getIntExtra(CurrencyMainActivity.EXTRA_TYPEID, 0);
 
         ImageView imageBack = (ImageView) findViewById(R.id.back);
         imageBack.setOnClickListener(new View.OnClickListener() {
@@ -69,9 +69,9 @@ public class ViewActivity extends Activity {
 
         String typeName = "";
         String typeDesc = "";
-        for (FuelListItem item : itemsResult) {
-            typeName = item.getFuelType().getName();
-            typeDesc = item.getFuelType().getDescription();
+        for (CurrencyListItem item : itemsResult) {
+            typeName = item.getCurrencyType().getName();
+            typeDesc = item.getCurrencyType().getType();
         }
 
         TextView viewTitle = (TextView) findViewById(R.id.viewTitle);
@@ -80,15 +80,15 @@ public class ViewActivity extends Activity {
         TextView viewTypeDesc = (TextView) findViewById(R.id.viewTitleHelp);
         viewTypeDesc.setText(typeDesc);
 
-        FuelViewItemAdapter adapter = new FuelViewItemAdapter(this, itemsResult);
+        CurrencyViewItemAdapter adapter = new CurrencyViewItemAdapter(this, itemsResult);
         itemList.setAdapter(adapter);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FuelListItem selectedItem = (FuelListItem) parent.getItemAtPosition(position);
+                CurrencyListItem selectedItem = (CurrencyListItem) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra(EXTRA_COMPANY_FULL_NAME, "АЗС%20" + selectedItem.getCompanies().get(0).getFullName());
+                intent.putExtra(EXTRA_COMPANY_FULL_NAME, "Банкомат%20" + selectedItem.getCompanies().get(0).getName());
                 startActivity(intent);
                 overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
             }
@@ -96,7 +96,7 @@ public class ViewActivity extends Activity {
     }
 
     private class ProgressTask extends AsyncTask<String, String, Void> {
-        private ProgressDialog dialog = new ProgressDialog(ViewActivity.this);
+        private ProgressDialog dialog = new ProgressDialog(CurrencyViewActivity.this);
 
         protected void onPreExecute() {
             this.dialog.setMessage(getString(R.string.loading));
@@ -117,8 +117,8 @@ public class ViewActivity extends Activity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            itemsResult = FuelItem.getView(typeId);
-            Collections.sort(itemsResult, FuelListItem.Comparators.PRICE);
+            itemsResult = CurrencyItem.getView(typeId);
+            Collections.sort(itemsResult, CurrencyListItem.Comparators.PRICE);
             return null;
         }
     }

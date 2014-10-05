@@ -1,0 +1,63 @@
+package ru.frozolab.benzin.adapter.currency;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.frozolab.benzin.R;
+import ru.frozolab.benzin.model.currency.CurrencyListItem;
+
+public class CurrencyViewItemAdapter extends BaseAdapter {
+    private List<CurrencyListItem> list = new ArrayList<CurrencyListItem>();
+    private LayoutInflater layoutInflater;
+
+    public CurrencyViewItemAdapter(Context context, List<CurrencyListItem> list) {
+        this.list = list;
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @Override
+    public int getCount() {
+        return this.list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return this.list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            view = layoutInflater.inflate(R.layout.activity_view_currency_item, parent, false);
+        }
+        CurrencyListItem item = getListItem(position);
+
+        TextView companyName = (TextView) view.findViewById(R.id.companyName);
+        companyName.setText(item.getCompanies().get(0).getName());
+
+        TextView priceBuy = (TextView) view.findViewById(R.id.priceBuy);
+        priceBuy.setText(item.getPriceBuy().getAmount().toString());
+
+        TextView priceSale = (TextView) view.findViewById(R.id.priceSale);
+        priceSale.setText(item.getPriceSale().getAmount().toString());
+
+        return view;
+    }
+
+    private CurrencyListItem getListItem(int position) {
+        return (CurrencyListItem) getItem(position);
+    }
+}

@@ -1,41 +1,45 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="#000"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="85dp">
+            android:layout_margin="10dp"></TabWidget>
 
-            <ListView
-                android:id="@+id/listMain"
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/tab1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#55ffcc00"/>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="-85dp">
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/about"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:src="@drawable/ic_about" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/tab2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="100px"
+                    android:text="This is tab2"
+                    android:id="@+id/txt1" />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
-
-</RelativeLayout>
+</TabHost>

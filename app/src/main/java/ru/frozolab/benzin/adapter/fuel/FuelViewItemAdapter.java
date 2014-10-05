@@ -1,4 +1,4 @@
-package ru.frozolab.benzin.adapter;
+package ru.frozolab.benzin.adapter.fuel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.frozolab.benzin.R;
-import ru.frozolab.benzin.model.ListItem;
+import ru.frozolab.benzin.model.fuel.FuelListItem;
 
-public class ViewItemAdapter extends BaseAdapter {
-    private List<ListItem> list = new ArrayList<ListItem>();
+public class FuelViewItemAdapter extends BaseAdapter {
+    private List<FuelListItem> list = new ArrayList<FuelListItem>();
     private LayoutInflater layoutInflater;
 
-    public ViewItemAdapter(Context context, List<ListItem> list) {
+    public FuelViewItemAdapter(Context context, List<FuelListItem> list) {
         this.list = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -41,9 +41,9 @@ public class ViewItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.activity_view_item, parent, false);
+            view = layoutInflater.inflate(R.layout.activity_view_fuel_item, parent, false);
         }
-        ListItem item = getListItem(position);
+        FuelListItem item = getListItem(position);
 
         TextView companyName = (TextView) view.findViewById(R.id.companyName);
         companyName.setText(item.getCompanies().get(0).getName());
@@ -54,7 +54,7 @@ public class ViewItemAdapter extends BaseAdapter {
         return view;
     }
 
-    private ListItem getListItem(int position) {
-        return (ListItem) getItem(position);
+    private FuelListItem getListItem(int position) {
+        return (FuelListItem) getItem(position);
     }
 }

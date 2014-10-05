@@ -1,97 +1,53 @@
 package ru.frozolab.benzin;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import ru.frozolab.benzin.adapter.MainItemAdapter;
-import ru.frozolab.benzin.model.Item;
-import ru.frozolab.benzin.model.ListItem;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 
-public class MainActivity extends Activity {
-
-    ListView itemList;
-    ImageView aboutImg;
-
-    public static final String EXTRA_TYPEID = "ru.frozolab.benzin.typeid";
-
-    List<ListItem> itemsResult = new ArrayList<ListItem>();
+public class MainActivity extends TabActivity {
+    TabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new ProgressTask().execute();
 
-        aboutImg = (ImageView) findViewById(R.id.about);
-        aboutImg.setOnClickListener(new View.OnClickListener() {
+        tabHost = getTabHost();
+        this.setNewTab(this, tabHost, "tab1", "Валюта", new Intent(this, CurrencyMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        this.setNewTab(this, tabHost, "tab2", "Топливо", new Intent(this, FuelMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        tabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.yellow));
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
-            }
-        });
-    }
-
-    private void initData() {
-        itemList = (ListView) findViewById(R.id.listMain);
-
-        MainItemAdapter adapter = new MainItemAdapter(this, itemsResult);
-        itemList.setAdapter(adapter);
-        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListItem selectedItem = (ListItem) parent.getItemAtPosition(position);
-                Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra(EXTRA_TYPEID, selectedItem.getType().getId());
-                startActivity(intent);
-                overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
-            }
-        });
-    }
-
-    private class ProgressTask extends AsyncTask<String, String, Void> {
-        private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-
-        protected void onPreExecute() {
-            this.dialog.setMessage(getString(R.string.loading));
-            this.dialog.show();
-            this.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface arg0) {
-                    ProgressTask.this.cancel(true);
+            public void onTabChanged(String tabId) {
+                for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+                    TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(R.id.textView); //Unselected Tabs
+                    tv.setTextColor(getResources().getColor(R.color.yellow));
                 }
-            });
-        }
+                TextView tv = (TextView) tabHost.getCurrentTabView().findViewById(R.id.textView); //for Selected Tab
+                tv.setTextColor(getResources().getColor(R.color.black));
+            }
+        });
+    }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            this.dialog.hide();
-            this.dialog.dismiss();
-            initData();
-        }
+    private void setNewTab(Context context, TabHost tabHost, String tag, String title, Intent intent ){
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec(tag);
+        tabSpec.setIndicator(getTabIndicator(tabHost.getContext(), title)); // new function to inject our own tab layout
+        tabSpec.setContent(intent);
+        tabHost.addTab(tabSpec);
+    }
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            itemsResult = Item.getMain();
-            Collections.sort(itemsResult, ListItem.Comparators.PRICE);
-            return null;
-        }
+    private View getTabIndicator(Context context, String title) {
+        View view = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
+        TextView tv = (TextView) view.findViewById(R.id.textView);
+        tv.setText(title);
+        return view;
     }
 }

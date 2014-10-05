@@ -24,7 +24,7 @@
             android:textSize="33dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:textColor="#ffcc00"
+            android:textColor="@color/yellow"
             android:fontFamily="sans-serif-thin"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:textSize="33dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:textColor="#ffcc00"
+            android:textColor="@color/yellow"
             android:fontFamily="sans-serif-thin"/>
     </LinearLayout>
     <LinearLayout
