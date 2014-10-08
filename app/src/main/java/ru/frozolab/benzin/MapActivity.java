@@ -2,6 +2,7 @@ package ru.frozolab.benzin;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,9 +28,10 @@ public class MapActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
 
-        companyFullName = Strings.nullToEmpty(getIntent().getStringExtra(ViewActivity.EXTRA_COMPANY_FULL_NAME));
+        companyFullName = Strings.nullToEmpty(getIntent().getStringExtra(ViewActivity.QUERY));
 
         webView.loadUrl(url + companyFullName);
+        Log.d("MAP", url + companyFullName);
     }
 
     @Override

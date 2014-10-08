@@ -24,6 +24,13 @@ public class MainActivity extends TabActivity {
         this.setNewTab(this, tabHost, "tab1", "Валюта", new Intent(this, CurrencyMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         this.setNewTab(this, tabHost, "tab2", "Топливо", new Intent(this, FuelMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         tabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.yellow));
+        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(R.id.textView); //Unselected Tabs
+            tv.setTextColor(getResources().getColor(R.color.yellow));
+            if (tabHost.getTabWidget().getChildAt(i).isSelected()) {
+                tv.setTextColor(getResources().getColor(R.color.black));
+            }
+        }
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
