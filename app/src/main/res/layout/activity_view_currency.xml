@@ -83,13 +83,13 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:background="#000"
-            android:weightSum="5">
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Банк"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:textSize="6pt"
                 android:layout_marginTop="5dp"
@@ -99,10 +99,10 @@
                 android:width="380px"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Покупка"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:gravity="center_vertical|right"
                 android:textSize="6pt"
                 android:layout_marginTop="5dp"
@@ -110,10 +110,10 @@
                 android:textColor="#ccc"
                 android:fontFamily="sans-serif-thin"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Продажа"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:gravity="center_vertical|right"
                 android:textSize="6pt"
                 android:layout_marginTop="5dp"
