@@ -26,7 +26,6 @@ public class ViewActivity extends Activity {
 
     ListView itemList;
     int typeId;
-    public static final String QUERY = "ru.frozolab.benzin.query";
     List<FuelListItem> itemsResult = new ArrayList<FuelListItem>();
 
     @Override
@@ -51,7 +50,7 @@ public class ViewActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra(QUERY, "АЗС%20");
+                intent.putExtra(MapActivity.QUERY, "АЗС%20");
                 startActivity(intent);
                 overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
             }
@@ -89,7 +88,7 @@ public class ViewActivity extends Activity {
                 FuelListItem selectedItem = (FuelListItem) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra(QUERY, "АЗС%20" + selectedItem.getCompanies().get(0).getFullName());
+                intent.putExtra(MapActivity.QUERY, "АЗС%20" + selectedItem.getCompanies().get(0).getFullName());
                 startActivity(intent);
                 overridePendingTransition(R.animator.slide_left_in, R.animator.slide_left_out);
             }

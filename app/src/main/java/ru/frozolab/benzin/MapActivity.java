@@ -15,6 +15,7 @@ public class MapActivity extends Activity {
 
     WebView webView;
     String companyFullName;
+    public static final String QUERY = "ru.frozolab.map.query";
     private final String url = "http://map.frozolab.ru/?what=";
 
     @Override
@@ -28,7 +29,7 @@ public class MapActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
 
-        companyFullName = Strings.nullToEmpty(getIntent().getStringExtra(ViewActivity.QUERY));
+        companyFullName = Strings.nullToEmpty(getIntent().getStringExtra(QUERY));
 
         webView.loadUrl(url + companyFullName);
         Log.d("MAP", url + companyFullName);

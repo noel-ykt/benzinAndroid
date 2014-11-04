@@ -5,7 +5,8 @@
     <string name="loading">Загрузка данных...</string>
     <string name="title_activity_view">Просмотр цен</string>
     <string name="title_activity_about">О программе</string>
-    <string name="about_dev">Разработка: FrozoLab</string>
+    <string name="about_text">Цены на бензин получаем из сайта Ykt.Ru. Цены на курс валют из официальных сайтов банков</string>
+    <string name="about_dev">Разработка: Frozolab</string>
     <string name="about_contact_us">Вы можете связаться с нами по email: frozolab@gmail.com</string>
     <string name="title_activity_map">MapActivity</string>
 
