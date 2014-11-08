@@ -6,8 +6,7 @@
     <string name="title_activity_view">Просмотр цен</string>
     <string name="title_activity_about">О программе</string>
     <string name="about_text">Информ Якутск - самые выгодные курсы валют и выгодные предложения по топливу в Якутске.</string>
+    <string name="about_source">Данные предоставлены: Ykt.Ru, сайты банков</string>
     <string name="about_contact_us">По всем вопросам пишите на:</string>
     <string name="email">frozolab@gmail.com</string>
-    <string name="title_activity_map">MapActivity</string>
-
 </resources>
