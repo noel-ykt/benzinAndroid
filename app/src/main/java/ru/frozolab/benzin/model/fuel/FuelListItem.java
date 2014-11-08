@@ -1,9 +1,9 @@
 package ru.frozolab.benzin.model.fuel;
 
-import org.joda.money.Money;
-
 import java.util.Comparator;
 import java.util.List;
+
+import ru.frozolab.benzin.util.Money;
 
 public class FuelListItem {
 

@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.google.common.collect.Lists;
 
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,6 +11,7 @@ import java.util.List;
 
 import ru.frozolab.benzin.util.Cache;
 import ru.frozolab.benzin.util.JSONParser;
+import ru.frozolab.benzin.util.Money;
 
 public class FuelItem {
     public static final String URL = "http://fuel.api.frozolab.ru/v2";
@@ -65,7 +64,7 @@ public class FuelItem {
                 JSONObject jsonCompany = jsonObject.getJSONObject(TAG_COMPANY);
                 FuelCompany fuelCompany = FuelCompany.initFromJSON(jsonCompany);
                 //Price
-                Money price = Money.parse(CurrencyUnit.USD.getCode() + " " + jsonObject.getString(TAG_PRICE));
+                Money price = Money.parse(Money.RUB, jsonObject.getString(TAG_PRICE));
 
                 FuelItem fuelItem = new FuelItem(fuelType, fuelCompany, price);
                 itemsResult.add(fuelItem);

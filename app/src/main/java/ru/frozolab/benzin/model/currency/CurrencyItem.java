@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.common.collect.Lists;
 
-import org.joda.money.Money;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +11,7 @@ import java.util.List;
 
 import ru.frozolab.benzin.util.Cache;
 import ru.frozolab.benzin.util.JSONParser;
+import ru.frozolab.benzin.util.Money;
 
 public class CurrencyItem {
     public static final String URL = "http://currency.api.frozolab.ru/v2";
@@ -71,8 +71,8 @@ public class CurrencyItem {
                 JSONObject jsonCompany = jsonObject.getJSONObject(TAG_COMPANY);
                 CurrencyCompany currencyCompany = CurrencyCompany.initFromJSON(jsonCompany);
                 //Price
-                Money priceBuy = Money.parse(currencyType.getName() + " " + jsonObject.getString(TAG_PRICE_BUY));
-                Money priceSale = Money.parse(currencyType.getName() + " " + jsonObject.getString(TAG_PRICE_SALE));
+                Money priceBuy = Money.parse(currencyType.getName(), jsonObject.getString(TAG_PRICE_BUY));
+                Money priceSale = Money.parse(currencyType.getName(), jsonObject.getString(TAG_PRICE_SALE));
 
                 CurrencyItem currencyItem = new CurrencyItem(currencyType, currencyCompany, priceBuy, priceSale);
                 itemsResult.add(currencyItem);
