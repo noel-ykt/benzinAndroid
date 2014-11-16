@@ -44,7 +44,7 @@ public class CurrencyViewActivity extends Activity {
             }
         });
 
-        ImageView imageMap = (ImageView) findViewById(R.id.map);
+        ImageView imageMap = (ImageView) findViewById(R.id.map_btn);
         imageMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,8 +70,8 @@ public class CurrencyViewActivity extends Activity {
         String typeName = "";
         String typeDesc = "";
         for (CurrencyListItem item : itemsResult) {
-            typeName = item.getCurrencyType().getName();
-            typeDesc = item.getCurrencyType().getType();
+            typeName = item.getCurrencyType().getLabel();
+            typeDesc = item.getCurrencyType().getType().getName();
         }
 
         TextView viewTitle = (TextView) findViewById(R.id.viewTitle);
@@ -118,7 +118,7 @@ public class CurrencyViewActivity extends Activity {
         @Override
         protected Void doInBackground(String... strings) {
             itemsResult = CurrencyItem.getView(typeId);
-            Collections.sort(itemsResult, CurrencyListItem.Comparators.PRICE);
+            Collections.sort(itemsResult, CurrencyListItem.Comparators.SORT);
             return null;
         }
     }

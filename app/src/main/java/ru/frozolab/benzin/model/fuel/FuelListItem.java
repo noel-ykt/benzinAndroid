@@ -12,7 +12,7 @@ public class FuelListItem {
         public static Comparator<FuelListItem> PRICE = new Comparator<FuelListItem>() {
             @Override
             public int compare(FuelListItem o1, FuelListItem o2) {
-                return o1.getPrice().getAmount().compareTo(o2.getPrice().getAmount());
+                return o1.getFuelType().getSort() - o2.getFuelType().getSort();
             }
         };
     }

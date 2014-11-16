@@ -92,7 +92,7 @@ public class CurrencyMainActivity extends ActivityGroup {
         @Override
         protected Void doInBackground(String... strings) {
             itemsResult = CurrencyItem.getMain();
-            Collections.sort(itemsResult, CurrencyListItem.Comparators.PRICE);
+            Collections.sort(itemsResult, CurrencyListItem.Comparators.SORT);
             return null;
         }
     }

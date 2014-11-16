@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:id="@+id/map"
+                android:id="@+id/map_btn"
                 android:src="@drawable/ic_map"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp" />

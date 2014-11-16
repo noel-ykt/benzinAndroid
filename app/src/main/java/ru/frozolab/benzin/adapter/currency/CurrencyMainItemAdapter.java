@@ -49,10 +49,10 @@ public class CurrencyMainItemAdapter extends BaseAdapter {
         CurrencyListItem item = getListItem(position);
 
         TextView typeName = (TextView) view.findViewById(R.id.typeName);
-        typeName.setText(item.getCurrencyType().getName());
+        typeName.setText(item.getCurrencyType().getLabel());
 
         TextView typeDesc = (TextView) view.findViewById(R.id.typeDesc);
-        typeDesc.setText(item.getCurrencyType().getType());
+        typeDesc.setText(item.getCurrencyType().getType().getName());
 
         TextView price = (TextView) view.findViewById(R.id.price);
         price.setText(item.getPriceSale().getAmount().toString());

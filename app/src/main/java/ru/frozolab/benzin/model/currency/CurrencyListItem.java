@@ -9,10 +9,10 @@ public class CurrencyListItem {
 
     public static class Comparators {
 
-        public static Comparator<CurrencyListItem> PRICE = new Comparator<CurrencyListItem>() {
+        public static Comparator<CurrencyListItem> SORT = new Comparator<CurrencyListItem>() {
             @Override
             public int compare(CurrencyListItem o1, CurrencyListItem o2) {
-                return o1.getPriceSale().getAmount().compareTo(o2.getPriceSale().getAmount());
+                return o1.getCurrencyType().getSort() - o2.getCurrencyType().getSort();
             }
         };
     }
