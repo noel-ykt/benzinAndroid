@@ -21,12 +21,21 @@ public class CurrencyListItem {
     private List<CurrencyCompany> companies;
     private Money priceBuy;
     private Money priceSale;
+    private boolean bestBuy;
+    private boolean bestSale;
 
-    public CurrencyListItem(CurrencyType currencyType, List<CurrencyCompany> companies, Money priceBuy, Money priceSale) {
+    public CurrencyListItem(CurrencyType currencyType,
+                            List<CurrencyCompany> companies,
+                            Money priceBuy,
+                            Money priceSale,
+                            boolean bestBuy,
+                            boolean bestSale) {
         this.currencyType = currencyType;
         this.companies = companies;
         this.priceBuy = priceBuy;
         this.priceSale = priceSale;
+        this.bestBuy = bestBuy;
+        this.bestSale = bestSale;
     }
 
     public CurrencyType getCurrencyType() {
@@ -63,5 +72,21 @@ public class CurrencyListItem {
 
     public void addCompany(CurrencyCompany currencyCompany) {
         this.companies.add(currencyCompany);
+    }
+
+    public boolean isBestBuy() {
+        return bestBuy;
+    }
+
+    public void setBestBuy(boolean bestBuy) {
+        this.bestBuy = bestBuy;
+    }
+
+    public boolean isBestSale() {
+        return bestSale;
+    }
+
+    public void setBestSale(boolean bestSale) {
+        this.bestSale = bestSale;
     }
 }

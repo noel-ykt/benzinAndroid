@@ -15,8 +15,8 @@ android {
         applicationId 'ru.frozolab.benzin'
         minSdkVersion 10
         targetSdkVersion 19
-        versionCode 8
-        versionName '2.7'
+        versionCode 9
+        versionName '2.8'
         signingConfig signingConfigs.android
     }
     buildTypes {

@@ -19,17 +19,28 @@ public class CurrencyItem {
     private static final String TAG_COMPANY = "bank";
     private static final String TAG_PRICE_BUY = "buy";
     private static final String TAG_PRICE_SALE = "sale";
+    private static final String TAG_BEST_SALE = "bestSale";
+    private static final String TAG_BEST_BUY = "bestBuy";
 
     private CurrencyType currencyType;
     private CurrencyCompany currencyCompany;
     private Money priceBuy;
     private Money priceSale;
+    private boolean bestBuy;
+    private boolean bestSale;
 
-    public CurrencyItem(CurrencyType currencyType, CurrencyCompany currencyCompany, Money priceBuy, Money priceSale) {
+    public CurrencyItem(CurrencyType currencyType,
+                        CurrencyCompany currencyCompany,
+                        Money priceBuy,
+                        Money priceSale,
+                        boolean bestBuy,
+                        boolean bestSale) {
         this.currencyType = currencyType;
         this.currencyCompany = currencyCompany;
         this.priceBuy = priceBuy;
         this.priceSale = priceSale;
+        this.bestBuy = bestBuy;
+        this.bestSale = bestSale;
     }
 
     public CurrencyType getCurrencyType() {
@@ -46,6 +57,14 @@ public class CurrencyItem {
 
     public Money getPriceSale() {
         return priceSale;
+    }
+
+    public boolean isBestBuy() {
+        return bestBuy;
+    }
+
+    public boolean isBestSale() {
+        return bestSale;
     }
 
     public static List<CurrencyListItem> getMain() {
@@ -74,7 +93,16 @@ public class CurrencyItem {
                 Money priceBuy = Money.parse(currencyType.getName(), jsonObject.getString(TAG_PRICE_BUY));
                 Money priceSale = Money.parse(currencyType.getName(), jsonObject.getString(TAG_PRICE_SALE));
 
-                CurrencyItem currencyItem = new CurrencyItem(currencyType, currencyCompany, priceBuy, priceSale);
+                boolean bestSale = jsonObject.getBoolean(TAG_BEST_SALE);
+                boolean bestBuy = jsonObject.getBoolean(TAG_BEST_BUY);
+
+                CurrencyItem currencyItem = new CurrencyItem(
+                        currencyType,
+                        currencyCompany,
+                        priceBuy,
+                        priceSale,
+                        bestBuy,
+                        bestSale);
                 itemsResult.add(currencyItem);
             } catch (Exception ex) {
                 Log.e("Parse Json Object", ex.getLocalizedMessage());
@@ -104,7 +132,13 @@ public class CurrencyItem {
     private static void upsertViewItem(List<CurrencyListItem> array, CurrencyItem currencyItem) {
         List<CurrencyCompany> companies = Lists.newArrayList();
         companies.add(currencyItem.getCurrencyCompany());
-        CurrencyListItem currencyListItem = new CurrencyListItem(currencyItem.getCurrencyType(), companies, currencyItem.getPriceBuy(), currencyItem.getPriceSale());
+        CurrencyListItem currencyListItem = new CurrencyListItem(
+                currencyItem.getCurrencyType(),
+                companies,
+                currencyItem.getPriceBuy(),
+                currencyItem.getPriceSale(),
+                currencyItem.isBestBuy(),
+                currencyItem.isBestSale());
         array.add(currencyListItem);
     }
 
@@ -128,7 +162,13 @@ public class CurrencyItem {
         if (!isExist) {
             List<CurrencyCompany> companies = Lists.newArrayList();
             companies.add(currencyItem.getCurrencyCompany());
-            CurrencyListItem currencyListItem = new CurrencyListItem(currencyItem.getCurrencyType(), companies, currencyItem.getPriceBuy(), currencyItem.getPriceSale());
+            CurrencyListItem currencyListItem = new CurrencyListItem(
+                    currencyItem.getCurrencyType(),
+                    companies,
+                    currencyItem.getPriceBuy(),
+                    currencyItem.getPriceSale(),
+                    currencyItem.isBestBuy(),
+                    currencyItem.isBestSale());
             array.add(currencyListItem);
         }
     }

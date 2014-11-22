@@ -19,19 +19,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minWidth="380px">
+            android:layout_weight="1">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Сбербанк"
                 android:id="@+id/companyName"
                 android:gravity="center_vertical"
-                android:textSize="7pt"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:textSize="16dp"
                 android:textColor="#ccc"
-                android:fontFamily="sans-serif-thin"/>
+                android:fontFamily="sans-serif-thin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
             </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -44,24 +43,24 @@
                 android:layout_weight="1"
                 android:text="38.90"
                 android:id="@+id/priceBuy"
-                android:gravity="center_vertical|right"
-                android:textSize="7pt"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical|center"
+                android:textSize="16dp"
                 android:textColor="#ffcc00"
-                android:fontFamily="sans-serif-thin"/>
+                android:fontFamily="sans-serif-thin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="38.90"
                 android:id="@+id/priceSale"
-                android:gravity="center_vertical|right"
-                android:textSize="7pt"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical|center"
+                android:textSize="16dp"
                 android:textColor="#ffcc00"
-                android:fontFamily="sans-serif-thin"/>
+                android:fontFamily="sans-serif-thin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
         </LinearLayout>
     </LinearLayout>
 

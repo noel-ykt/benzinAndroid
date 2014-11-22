@@ -51,8 +51,24 @@ public class CurrencyViewItemAdapter extends BaseAdapter {
         TextView priceBuy = (TextView) view.findViewById(R.id.priceBuy);
         priceBuy.setText(item.getPriceBuy().getAmount().toString());
 
+        if (item.isBestBuy()) {
+            priceBuy.setBackgroundColor(parent.getResources().getColor(R.color.yellow));
+            priceBuy.setTextColor(parent.getResources().getColor(R.color.black));
+        } else {
+            priceBuy.setBackgroundColor(parent.getResources().getColor(R.color.black));
+            priceBuy.setTextColor(parent.getResources().getColor(R.color.yellow));
+        }
+
         TextView priceSale = (TextView) view.findViewById(R.id.priceSale);
         priceSale.setText(item.getPriceSale().getAmount().toString());
+
+        if (item.isBestSale()) {
+            priceSale.setBackgroundColor(parent.getResources().getColor(R.color.yellow));
+            priceSale.setTextColor(parent.getResources().getColor(R.color.black));
+        } else {
+            priceSale.setBackgroundColor(parent.getResources().getColor(R.color.black));
+            priceSale.setTextColor(parent.getResources().getColor(R.color.yellow));
+        }
 
         return view;
     }
